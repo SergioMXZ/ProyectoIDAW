@@ -1,0 +1,64 @@
+<%- include('partials/head') %>
+<nav>
+  <style>
+    #b1,
+    #b2 {
+      border-color: #0ea5e9;
+    }
+  </style>
+  <%- include('partials/header') %>
+</nav>
+
+<body id="body-pag">
+  <div class="row m-2">
+    <form action="/buscarVentas" method="post">
+      <div class="form-group">
+        <label for="fecha">Fecha:</label>
+        <input type="date" class="form-control" id="fecha" name="fecha" required />
+      </div>
+      <button type="submit" class="btn btn-primary m-1">Buscar ventas</button>
+    </form>
+    <div class="products-t">Products</div>
+      <table class="table table-striped table-bordered p-1 shadow">
+        <thead>
+          <tr>
+            <th>Ventas</th>
+            <th>Productos</th>
+            <th>Precios</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% let ventasTotal = 0; %>
+          <% let productosVendidos = 0; %>
+          <% ventas.forEach((venta) => { %>
+            <!-- Aqui se obtine la fecha formateada -->
+            <% let fecha = venta.createdAt; let dia = fecha.getDate(); let mes =
+            fecha.getMonth() + 1; let año = fecha.getFullYear(); let hora =
+            fecha.getHours(); let minutos = fecha.getMinutes(); if (dia < 10) dia = "0"
+            + dia; if (mes < 10) mes = "0" + mes; let fechaFormateada = dia + "/" + mes
+            + "/" + año + " " + hora + ":" + minutos; %>
+            <!---------------------------------------->
+            <tr>
+              <td>Venta: <%= fechaFormateada %></td>
+              <td>
+                <% venta.productos.forEach((pdto) => { %>
+                  <%= pdto.nombre %> (<%= pdto.cantidad %>), 
+                  <% productosVendidos += pdto.cantidad %>
+                <% }) %>
+              </td>
+              <td>$<%= venta.totalVenta %></td>
+              <% ventasTotal += venta.totalVenta %>
+            </tr>
+          <% }) %>
+        </tbody>
+        <tfoot>
+          <tr>
+            <td>Ventas: <%= ventas.length %></td>
+            <td>Total ventas: $<%= ventasTotal %> , Total Productos Vendidos: <%= productosVendidos %></td>
+          </tr>
+        </tfoot>
+      </table>
+    </div>
+  </div>
+</body>
+<%- include('partials/footer') %>

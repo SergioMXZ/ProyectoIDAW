@@ -1,0 +1,43 @@
+<%- include('./partials/head') %>
+<nav>
+  <style>
+    #b2, #b3 {
+      border-color: #0ea5e9;
+    }
+  </style>
+  <%- include('partials/header') %>
+</nav>
+<body id="body-pag">
+  <div class="row m-2">
+    <div class="products-t">Products</div>
+    <table class="table table-striped table-bordered p-1 shadow">
+      <tr>
+        <th>Id</th>
+        <th>Product</th>
+        <th>Description</th>
+        <th>Price</th>
+        <th>Actions</th>
+      </tr>
+      <% pdtoCatalogo.forEach(function(pdto) { %>
+        <tr>
+          <td><%= pdto.codigo %></td>
+          <td><%= pdto.nombre %></td>
+          <td><%= pdto.descripcion %></td>
+          <td>$<%= pdto.precio %></td>
+          <td>
+            <a href="/editar/<%= pdto.codigo %>" class="button btn btn-primary">Edit</a>
+            <a href="/borrar/<%= pdto.codigo %>" class="button btn btn-danger" 
+              onclick="return confirm('Are you sure to delete this product from the catalog?')">Delete</a>
+          </td>
+        </tr>
+      <% }); %>
+      <% if (pdtoCatalogo.length < 15) { %>
+        <td colspan="6" class="text-center">
+          <a href="/crearProducto" class="button btn btn-success">Create Product</a>
+        </td>
+      <% } %>
+    </table>
+  </div>
+</div>
+</body>
+<%- include('partials/footer') %>

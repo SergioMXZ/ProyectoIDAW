@@ -1,0 +1,140 @@
+<%- include('partials/head') %>
+<nav>
+  <style>
+    #b1,
+    #b3 {
+      border-color: #0ea5e9;
+    }
+  </style>
+  <%- include('partials/header') %>
+</nav>
+
+<% if (scroll && addedProducts.length > 0) { %>
+<script>
+  scroll = false;
+  window.onload = function () {
+    var elemento = document.getElementById("scroll-list");
+    elemento.scrollIntoView();
+  };
+</script>
+<% } %>
+
+<body id="body-pag">
+  <div>
+    <div class="row m-2 p-1 products-t">Products</div>
+    <div class="row m-2">
+      <div class="col col-cols-3 col-cols-sm-5 col-cols-md-5 products">
+        <% pdtoCatalogo.forEach(function(pdto) { %>
+        <form action="/addProduct/<%= pdto.codigo %>" method="post">
+          <button
+            type="submit"
+            class="button-p btn btn p-0"
+            style="width: 14rem"
+          >
+            <span class="card m-1 shadow">
+              <div class="card-body">
+                <h5 class="card-title">
+                  <%= pdto.nombre %> $<%= pdto.precio %>.°°
+                </h5>
+              </div>
+              <div class="cantidad">
+                <h6>quantity:</h6>
+                <input
+                  class="no-arrows"
+                  name="cantidad"
+                  type="number"
+                  id="<%= pdto.codigo %>"
+                  value="1"
+                  min="1"
+                  max="30"
+                  readonly
+                />
+              </div>
+            </span>
+          </button>
+          <span class="product">
+            <button
+              type="button"
+              style="width: 5rem; margin-right: 5px"
+              class="button btn btn-secondary"
+              onclick="cambioCantidad('<%= pdto.codigo %>','restar')"
+            >
+              -
+            </button>
+            <button
+              type="button"
+              style="width: 5rem"
+              class="button btn btn-secondary"
+              onclick="cambioCantidad('<%= pdto.codigo %>','sumar')"
+            >
+              +
+            </button>
+          </span>
+        </form>
+        <% }); %>
+      </div>
+    </div>
+    <div class="row m-2">
+      <div id="scroll-list" class="products-t">Added products</div>
+      <table class="table table-striped table-bordered p-1 shadow">
+        <tr>
+          <th>Qty</th>
+          <th>Product</th>
+          <th>Price</th>
+          <th>Total</th>
+          <th>Actions</th>
+        </tr>
+        <% totalProducts = 0; %> <% for (let index = 0; index <
+        addedProducts.length; index++) { %> <% const pdts =
+        addedProducts[index]; %> <% totalProducts += pdts.total; %>
+        <tr>
+          <td>x<%= pdts.cantidad %></td>
+          <td><%= pdts.nombre %></td>
+          <td>$<%= pdts.precio %></td>
+          <td>$<%= pdts.total %></td>
+          <td>
+            <a
+              type="button"
+              style="width: 8rem"
+              href="/remove/<%= index %>"
+              class="button btn btn-danger"
+              >Remove</a
+            >
+          </td>
+        </tr>
+        <% }; %>
+        <tr>
+          <td colspan="3">Total de los productos:</td>
+          <td>$<%= totalProducts %></td>
+          <td></td>
+        </tr>
+        <td colspan="7" class="text-center">
+          <% if (addedProducts.length > 0) { %>
+          <a href="/buy-products" class="button btn btn-success" type="button"
+            >Buy Products</a
+          >
+          <a href="/cancelar" class="button btn btn-secondary m-1" type="button"
+            >Cancel</a
+          >
+          <% } %>
+        </td>
+      </table>
+    </div>
+  </div>
+</body>
+<%- include('partials/footer') %>
+<script>
+  // funtion para sumar o restar la cantidad de un producto
+  function cambioCantidad(codigo, accion) {
+    var cantidad = parseInt(document.getElementById(codigo).value, 10);
+    cantidad = isNaN(cantidad) ? 1 : cantidad;
+    if (accion === "sumar") {
+      cantidad >= 30 ? (cantidad = 29) : "";
+      cantidad++;
+    } else if (accion === "restar") {
+      cantidad <= 1 ? (cantidad = 2) : "";
+      cantidad--;
+    }
+    document.getElementById(codigo).value = cantidad;
+  }
+</script>

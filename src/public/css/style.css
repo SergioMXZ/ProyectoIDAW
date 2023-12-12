@@ -1,0 +1,124 @@
+
+#body {
+    background-color: #f0f9ff;
+}
+
+#footer {
+    font: 18px sans-serif;
+    background-color: #0284c7;
+    margin: 0%;
+    padding: 5px;
+    color: white;
+}
+
+.abs-center {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100%;
+}
+
+.form {
+    background-color: white;
+    display: block;
+    width: 450px;
+}
+
+#link {
+    float: right;
+}
+
+.button:hover {
+    transform: scale(1.1);
+}
+
+.button-p:hover {
+    transform: scale(1.05);
+}
+
+#logo {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+img {
+    width: 120px;
+    margin-top: 10px
+}
+
+#cabecera {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    border-color: white;
+}
+
+#b4 {
+    border-color: #0284c7;
+}
+
+#b1,
+#b2,
+#b3,
+#b4 {
+    color: #0284c7;
+}
+
+nav {
+    background-color: #0284c7;
+    font: bold 14px verdana, sans-serif;
+}
+
+#user {
+    padding: 0px;
+    margin: 1px 10px;
+}
+
+#user img {
+    width: 50px;
+}
+
+#titulo-pag {
+    font: bold 35px verdana, sans-serif;
+    color: #f0f9ff;
+}
+
+#body-pag {
+    font: bold 14px verdana, sans-serif;
+}
+
+.products-t {
+    background-color: #0284c7;
+    color: white;
+}
+
+.products {
+    display: contents;
+}
+
+.product {
+    display: flex;
+    justify-content: center;
+}
+
+.cantidad {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font: bold 14px verdana, sans-serif;
+}
+
+input[type='number'].no-arrows {
+    border: transparent;
+    height: 30px;
+    width: 40px;
+    font: bold 14px verdana, sans-serif;
+}
+
+#addproduct {
+    border-radius: 20px;
+    background-color: #0284c7;
+    color: white;
+    width: 95%;
+}
