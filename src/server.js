@@ -7,7 +7,6 @@ const mongoose = require("mongoose");
 const moment = require("moment-timezone");
 const passport = require("passport");
 const helpers = require("./helpers/auth");
-const User = require("./models/user");
 const Venta = require("./models/venta");
 const Producto = require("./models/producto");
 const PdtoCatalogo = require("./models/pdtoCatalogo");
@@ -70,7 +69,7 @@ const port = 3000;
 
 // Habilitar el servidor
 server.listen(port, () => {
-  console.log(`Servidor en ejecución en http://localhost:${port}`);
+  console.log(`Server running on http://localhost:${port}`);
 });
 
 // ------------------------ Rutas ------------------------
@@ -181,7 +180,7 @@ server.post("/crearProducto", helpers.isLoggedIn, async (req, res) => {
             ? nuevoCodigo + 1
             : 1;
         do {
-          // Verifica si el nuevo codigo ya existe en el catálogo
+          // Verificar si el nuevo codigo ya existe en el catálogo
           const existeCodigo = await PdtoCatalogo.exists({
             codigo: nuevoCodigo,
           });
@@ -215,7 +214,6 @@ server.post("/crearProducto", helpers.isLoggedIn, async (req, res) => {
     // Guardar el nuevo producto en la base de datos
     await nuevoProducto.save();
 
-    // Redirige a la página de lista de productos o a donde desees después de la creación
     res.redirect("/catalog");
   } catch (error) {
     console.error(error);

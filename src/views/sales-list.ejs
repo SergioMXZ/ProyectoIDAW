@@ -13,18 +13,18 @@
   <div class="row m-2">
     <form action="/buscarVentas" method="post">
       <div class="form-group">
-        <label for="fecha">Fecha:</label>
+        <label for="fecha">Date:</label>
         <input type="date" class="form-control" id="fecha" name="fecha" required />
       </div>
-      <button type="submit" class="btn btn-primary m-1">Buscar ventas</button>
+      <button type="submit" class="btn btn-primary m-1">Search sales</button>
     </form>
     <div class="products-t">Products</div>
       <table class="table table-striped table-bordered p-1 shadow">
         <thead>
           <tr>
-            <th>Ventas</th>
-            <th>Productos</th>
-            <th>Precios</th>
+            <th>Sales</th>
+            <th>Products</th>
+            <th>Prices</th>
           </tr>
         </thead>
         <tbody>
@@ -32,14 +32,19 @@
           <% let productosVendidos = 0; %>
           <% ventas.forEach((venta) => { %>
             <!-- Aqui se obtine la fecha formateada -->
-            <% let fecha = venta.createdAt; let dia = fecha.getDate(); let mes =
-            fecha.getMonth() + 1; let año = fecha.getFullYear(); let hora =
-            fecha.getHours(); let minutos = fecha.getMinutes(); if (dia < 10) dia = "0"
-            + dia; if (mes < 10) mes = "0" + mes; let fechaFormateada = dia + "/" + mes
-            + "/" + año + " " + hora + ":" + minutos; %>
+            <% let fecha = venta.createdAt;
+            let dia = fecha.getDate();
+            let mes = fecha.getMonth() + 1;
+            let año = fecha.getFullYear();
+            let hora = fecha.getHours();
+            let minutos = fecha.getMinutes();
+            if (minutos < 10) minutos = "0" + minutos;
+            if (dia < 10) dia = "0" + dia;
+            if (mes < 10) mes = "0" + mes;
+            let fechaFormateada = dia + "/" + mes + "/" + año + " " + hora + ":" + minutos; %>
             <!---------------------------------------->
             <tr>
-              <td>Venta: <%= fechaFormateada %></td>
+              <td>Sale: <%= fechaFormateada %></td>
               <td>
                 <% venta.productos.forEach((pdto) => { %>
                   <%= pdto.nombre %> (<%= pdto.cantidad %>), 
@@ -53,8 +58,8 @@
         </tbody>
         <tfoot>
           <tr>
-            <td>Ventas: <%= ventas.length %></td>
-            <td>Total ventas: $<%= ventasTotal %> , Total Productos Vendidos: <%= productosVendidos %></td>
+            <td>Sales: <%= ventas.length %></td>
+            <td>Total sales: $<%= ventasTotal %> , Total Products Sold: <%= productosVendidos %></td>
           </tr>
         </tfoot>
       </table>
