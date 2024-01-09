@@ -39,6 +39,12 @@ mongoose
     console.error("Error de conexion bd", error);
   });
 
+// Esto registra los errores despues la conexion
+const db = mongoose.connection;
+db.on('error', (error) => {
+  console.error(error, "¡Intenta iniciar el servicio MongoDB!");
+});
+
 // ------------------------ Middlewares ------------------------
 
 // Configuración para el manejo de datos de formularios
